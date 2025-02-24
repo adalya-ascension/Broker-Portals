@@ -467,18 +467,18 @@ function Portals:UpdateMenu(level, value, showUnlock)
     if self.db.stonesSubMenu then
       local mainHeaderSet = false
       --Adds menu if any stone in that category has been learned
-			for continent, _ in pairs(self.stones) do
-				if self:ShowStones(continent, true) then
-        mainHeaderSet = self:SetHeader("Stones Of Retreat", mainHeaderSet)
-        dewdrop:AddLine(
-          'textHeight', self.db.txtSize,
-          'textWidth', self.db.txtSize,
-          'text', continent,
-          'hasArrow', true,
-          'value', continent
+      for continent, _ in pairs(self.stones) do
+        if self:ShowStones(continent, true) then
+          mainHeaderSet = self:SetHeader("Stones Of Retreat", mainHeaderSet)
+          dewdrop:AddLine(
+            'textHeight', self.db.txtSize,
+            'textWidth', self.db.txtSize,
+            'text', continent,
+            'hasArrow', true,
+            'value', continent
           )
-				end
-			end
+        end
+      end
     else
       self:ShowStones("All")
     end
@@ -495,11 +495,11 @@ function Portals:UpdateMenu(level, value, showUnlock)
     dewdrop:AddLine()
     if showUnlock then
       dewdrop:AddLine(
-          'text', "Unlock Frame",
-          'textHeight', self.db.txtSize,
-          'textWidth', self.db.txtSize,
-          'func', self.UnlockFrame,
-          'closeWhenClicked', true
+        'text', "Unlock Frame",
+        'textHeight', self.db.txtSize,
+        'textWidth', self.db.txtSize,
+        'func', self.UnlockFrame,
+        'closeWhenClicked', true
       )
     end
     dewdrop:AddLine(
