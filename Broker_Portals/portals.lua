@@ -333,44 +333,44 @@ function Portals:ShowStones(subMenu, spellCheck, noSpacer) --Kalimdor, true
   local function tableSort(zone)
     local sorted = {}
     local headerSet = false
-      for ID, spellID in ipairs(self.stones[zone]) do
-					if self:CheckFavorites(spellID) and not (self.stoneInfo[spellID].factionLock and self.stoneInfo[spellID].fac ~= fac ) and (xpacLevel >= self.stoneInfo[spellID].expac) then --xpacLevel and locked cities check
-						if self.db.showEnemy or (self.stoneInfo[spellID].fac == fac or self.stoneInfo[spellID].fac == "Neutral") then --faction or showEnemy check
-							--returns on the first found stone to turn the menu on
-              if spellCheck and self:HasVanityOrSpell(spellID) then return true end
-							if self:HasVanityOrSpell(spellID) then
-                local name =  self.stoneInfo[spellID].zone
-                if not self.db.showStonesZone then
-                  name = GetSpellInfo(spellID)
-                elseif sorted[name] then
-                  name = name..ID
-                end
-                sorted[name] = {spellID}
-              end
-						end
-					end
+    for ID, spellID in ipairs(self.stones[zone]) do
+      if self:CheckFavorites(spellID) and not (self.stoneInfo[spellID].factionLock and self.stoneInfo[spellID].fac ~= fac) and (xpacLevel >= self.stoneInfo[spellID].expac) then --xpacLevel and locked cities check
+        if self.db.showEnemy or (self.stoneInfo[spellID].fac == fac or self.stoneInfo[spellID].fac == "Neutral") then --faction or showEnemy check
+          --returns on the first found stone to turn the menu on
+          if spellCheck and self:HasVanityOrSpell(spellID) then return true end
+          if self:HasVanityOrSpell(spellID) then
+            local name = self.stoneInfo[spellID].zone
+            if not self.db.showStonesZone then
+              name = GetSpellInfo(spellID)
+            elseif sorted[name] then
+              name = name..ID
+            end
+            sorted[name] = {spellID}
+          end
+        end
       end
-      table.sort(sorted)
-      for _,v in self:PairsByKeys(sorted) do
-        headerSet = self:SetHeader(self.stones[zone].header, headerSet, noSpacer)
-        self:DewDropAdd(v[1], "spell")
-      end
+    end
+    table.sort(sorted)
+    for _,v in self:PairsByKeys(sorted) do
+      headerSet = self:SetHeader(self.stones[zone].header, headerSet, noSpacer)
+      self:DewDropAdd(v[1], "spell")
+    end
   end
 
-	local function addTable(zone)
-		local spellCheck = tableSort(zone)
-		if spellCheck then return true end
-	end
+  local function addTable(zone)
+    local spellCheck = tableSort(zone)
+    if spellCheck then return true end
+  end
 
-	if subMenu == "All" then
-		for continent, zone in pairs(self.stones) do
-			if xpacLevel >= zone.expansion then
+  if subMenu == "All" then
+    for continent, zone in pairs(self.stones) do
+      if xpacLevel >= zone.expansion then
         addTable(continent)
       end
-		end
-	else
-		return addTable(subMenu)
-	end
+    end
+  else
+    return addTable(subMenu)
+  end
 end
 
 --scrolls of defense and scrolls of retreat
