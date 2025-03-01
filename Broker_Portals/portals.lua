@@ -334,19 +334,17 @@ function Portals:ShowStones(subMenu, spellCheck, noSpacer) --Kalimdor, true
     local sorted = {}
     local headerSet = false
     for ID, spellID in ipairs(self.stones[zone]) do
-      if self:CheckFavorites(spellID) and not (self.stoneInfo[spellID].factionLock and self.stoneInfo[spellID].fac ~= fac) and (xpacLevel >= self.stoneInfo[spellID].expac) then --xpacLevel and locked cities check
-        if self.db.showEnemy or (self.stoneInfo[spellID].fac == fac or self.stoneInfo[spellID].fac == "Neutral") then --faction or showEnemy check
-          --returns on the first found stone to turn the menu on
-          if spellCheck and self:HasVanityOrSpell(spellID) then return true end
-          if self:HasVanityOrSpell(spellID) then
-            local name = self.stoneInfo[spellID].zone
-            if not self.db.showStonesZone then
-              name = GetSpellInfo(spellID)
-            elseif sorted[name] then
-              name = name..ID
-            end
-            sorted[name] = {spellID}
+      if self:CheckFavorites(spellID) and self:CheckStone(spellID, fac, xpacLevel) then
+        --returns on the first found stone to turn the menu on
+        if spellCheck and self:HasVanityOrSpell(spellID) then return true end
+        if self:HasVanityOrSpell(spellID) then
+          local name = self.stoneInfo[spellID].zone
+          if not self.db.showStonesZone then
+            name = GetSpellInfo(spellID)
+          elseif sorted[name] then
+            name = name..ID
           end
+          sorted[name] = {spellID}
         end
       end
     end

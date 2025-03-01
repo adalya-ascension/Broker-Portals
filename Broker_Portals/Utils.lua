@@ -217,6 +217,23 @@ function Portals:CheckFavorites(ID)
   return not self.favoritesdb[ID] or not self.favoritesdb[ID][1]
 end
 
+function Portals:CheckStone(spellID, playerFaction, expansion)
+    -- check expansion
+    if expansion < self.stoneInfo[spellID].expac then return false end
+
+    -- check faction
+    if self.stoneInfo[spellID].fac ~= playerFaction then
+        if self.stoneInfo[spellID].factionLock then
+            return false
+        else
+            return self.db.showEnemy
+        end
+    end
+
+    -- else stone is cleared to be listed
+    return true
+end
+
 function Portals:HasVanityOrSpell(spellID)
   return CA_IsSpellKnown(spellID) or self:HasVanity(spellID)
 end
