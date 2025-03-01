@@ -518,14 +518,8 @@ function Portals:UpdateMenu(level, value, showUnlock)
       'tooltipText', CLOSE_DESC,
       'closeWhenClicked', true
     )
-  elseif level == 2 and value == 'Kalimdor' then
-    self:ShowStones("Kalimdor", nil, true)
-  elseif level == 2 and value == 'EasternKingdoms' then
-    self:ShowStones("EasternKingdoms", nil, true)
-  elseif level == 2 and value == 'Outlands' then
-    self:ShowStones("Outlands", nil, true)
-  elseif level == 2 and value == 'Northrend' then
-    self:ShowStones("Northrend", nil, true)
+  elseif level == 2 then
+    self:ShowStones(value, nil, true)
   end
 end
 
