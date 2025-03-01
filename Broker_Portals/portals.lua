@@ -358,19 +358,14 @@ function Portals:ShowStones(subMenu, spellCheck, noSpacer) --Kalimdor, true
     end
   end
 
-  local function addTable(zone)
-    local spellCheck = tableSort(zone)
-    if spellCheck then return true end
-  end
-
   if subMenu == "All" then
     for continent, zone in pairs(self.stones) do
       if xpacLevel >= zone.expansion then
-        addTable(continent)
+        tableSort(continent)
       end
     end
   else
-    return addTable(subMenu)
+    return tableSort(subMenu)
   end
 end
 
