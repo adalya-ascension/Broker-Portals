@@ -420,7 +420,7 @@ function Portals:ShowFavorites()
   if self.favoritesdb then
     local headerSet = false
     local sorted = {}
-    for ID ,v in pairs(self.favoritesdb) do
+    for ID, v in pairs(self.favoritesdb) do
       if type(v) == "table" then
         if v[1] then
           local name
@@ -443,14 +443,14 @@ function Portals:ShowFavorites()
       end
     end
     table.sort(sorted)
-    for _,v in self:PairsByKeys(sorted) do
+    for _, v in self:PairsByKeys(sorted) do
       --self:AddFavorites(spellID 1, type 2, mage 3, isPortal 4, portalSpellID 5)
-      if not self.stoneInfo[v[1]] or (self.stoneInfo[v[1]] and not (self.stoneInfo[v[1]].factionLock and self.stoneInfo[v[1]].fac ~= fac ) and (xpacLevel >= self.stoneInfo[v[1]].expac)) then --xpacLevel and locked cities check
+      if not self.stoneInfo[v[1]] or (self.stoneInfo[v[1]] and not (self.stoneInfo[v[1]].factionLock and self.stoneInfo[v[1]].fac ~= fac) and (xpacLevel >= self.stoneInfo[v[1]].expac)) then --xpacLevel and locked cities check
         if self.db.showEnemy or (self.stoneInfo[v[1]] and (self.stoneInfo[v[1]].fac == fac or self.stoneInfo[v[1]].fac == "Neutral")) or v[3] then --faction or showEnemy check
-          if  ( v[3] and (not v[4] and self:IsPortalKnown(v[1])) or
-              (v[4] and self.db.showPortals and not self.db.swapPortals and self:IsPortalKnown(v[1]) and ((GetNumPartyMembers() > 0 or UnitInRaid("player")))) or
-              (v[4] and not self.db.showPortals and not self.db.swapPortals and self:IsPortalKnown(v[1]))) or
-              (not v[3] and CA_IsSpellKnown(v[1])) or self:HasVanity(v[1]) or self:HasItem(v[1]) then
+          if (v[3] and (not v[4] and self:IsPortalKnown(v[1])) or
+             (v[4] and self.db.showPortals and not self.db.swapPortals and self:IsPortalKnown(v[1]) and ((GetNumPartyMembers() > 0 or UnitInRaid("player")))) or
+             (v[4] and not self.db.showPortals and not self.db.swapPortals and self:IsPortalKnown(v[1]))) or
+             (not v[3] and CA_IsSpellKnown(v[1])) or self:HasVanity(v[1]) or self:HasItem(v[1]) then
                 headerSet = self:SetHeader("Favorites", headerSet, true)
                 self:DewDropAdd(v[1], v[2], v[3], v[4], v[5])
           end
